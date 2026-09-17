@@ -1,0 +1,21 @@
+name: NovaCore
+version: 1.0.0
+main: dev.novacore.NovaCore
+api-version: '26.2'
+authors: [NovaCore]
+description: Core foundation for NovaCore
+
+commands:
+  novacore:
+    description: Main NovaCore command
+    usage: /<command> [help|info|reload]
+    aliases: [nc]
+    permission: novacore.use
+
+permissions:
+  novacore.use:
+    description: Allows use of NovaCore commands
+    default: true
+  novacore.admin:
+    description: Allows administrative NovaCore commands
+    default: op

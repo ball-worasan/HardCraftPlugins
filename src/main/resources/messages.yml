@@ -1,0 +1,5 @@
+prefix: "<dark_gray>[<aqua>NovaCore</aqua>]</dark_gray> "
+join: "<gray>Welcome, <aqua><player></aqua>!</gray>"
+no-permission: "<red>You do not have permission to use this command.</red>"
+reload-success: "<green>Configuration reloaded successfully.</green>"
+unknown-command: "<red>Unknown command. Use /novacore help.</red>"
