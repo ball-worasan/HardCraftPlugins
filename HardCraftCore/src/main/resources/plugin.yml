@@ -1,0 +1,21 @@
+name: HardCraftCore
+version: '${version}'
+main: com.hardcraft.core.HardCraftCore
+api-version: '26.2'
+authors: [HardCraft]
+description: Foundation services for HardCraft
+
+commands:
+  hardcraft:
+    description: HardCraft administration command
+    usage: /<command> [status|reload]
+    aliases: [hc]
+    permission: hardcraft.core.status
+
+permissions:
+  hardcraft.core.status:
+    description: View HardCraft Core status
+    default: op
+  hardcraft.core.reload:
+    description: Reload validated HardCraft Core configuration
+    default: op
