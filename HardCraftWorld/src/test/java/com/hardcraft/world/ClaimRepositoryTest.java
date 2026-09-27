@@ -1,0 +1,9 @@
+package com.hardcraft.world;
+import static org.junit.jupiter.api.Assertions.*;import java.nio.file.Path;import java.util.*;import java.util.concurrent.*;import org.junit.jupiter.api.Test;import org.junit.jupiter.api.io.TempDir;
+final class ClaimRepositoryTest{
+ @Test void overlapRejectedAndAdjacentAccepted(@TempDir Path d){ClaimRepository r=repo(d);UUID a=UUID.randomUUID();Claim first=r.create(a,"world",0,10,0,10);assertThrows(IllegalArgumentException.class,()->r.create(a,"world",10,20,5,6));assertEquals(2,r.create(a,"world",11,20,0,10).id());assertEquals(first,r.all().getFirst());}
+ @Test void trustPersistsAndDeleteCascades(@TempDir Path d){ClaimRepository r=repo(d);UUID owner=UUID.randomUUID(),friend=UUID.randomUUID();Claim c=r.create(owner,"world",0,2,0,2);r.trust(c.id(),friend,owner,true);assertTrue(repo(d).all().getFirst().permits(friend));r.trust(c.id(),friend,owner,false);assertFalse(r.all().getFirst().permits(friend));r.delete(c.id(),owner);assertTrue(r.all().isEmpty());}
+ @Test void concurrentOverlapHasOneWinner(@TempDir Path d)throws Exception{ClaimRepository r=repo(d);try(ExecutorService p=Executors.newFixedThreadPool(8)){List<Future<Boolean>> jobs=new ArrayList<>();for(int i=0;i<20;i++)jobs.add(p.submit(()->{try{r.create(UUID.randomUUID(),"world",0,10,0,10);return true;}catch(RuntimeException e){return false;}}));int wins=0;for(var j:jobs)if(j.get(10,TimeUnit.SECONDS))wins++;assertEquals(1,wins);assertEquals(1,r.all().size());}}
+ @Test void boundaryAndPermissionRules(){UUID o=UUID.randomUUID(),t=UUID.randomUUID();Claim c=new Claim(1,o,"w",0,10,0,10,Set.of(t));assertTrue(c.contains("w",0,10));assertFalse(c.contains("w",-1,5));assertTrue(c.permits(o));assertTrue(c.permits(t));assertFalse(c.permits(UUID.randomUUID()));}
+ private ClaimRepository repo(Path d){ClaimRepository r=new ClaimRepository(d.resolve("db.sqlite"));r.migrate();return r;}
+}

@@ -1,0 +1,15 @@
+name: HardCraftWorld
+version: '${version}'
+main: com.hardcraft.world.HardCraftWorld
+api-version: '26.2'
+depend: [HardCraftCore, HardCraftProfiles]
+commands:
+  claim:
+    permission: hardcraft.world.claim
+    usage: /claim <create radius|delete|trust player|untrust player|info>
+  claimadmin:
+    permission: hardcraft.world.admin
+    usage: /claimadmin <delete id|inspect>
+permissions:
+  hardcraft.world.claim: {default: true}
+  hardcraft.world.admin: {default: op}

@@ -1,0 +1,6 @@
+claims:
+  max-per-player: 3
+  min-radius: 4
+  max-radius: 32
+  max-blocks: 4225
+pvp-enabled: false
