@@ -1,0 +1,11 @@
+quests:
+  welcome:
+    title: First Timber
+    objective:
+      type: BREAK
+      material: OAK_LOG
+      amount: 3
+    rewards:
+      money: 100
+      item: hardcraft:wayfinder
+    next: none

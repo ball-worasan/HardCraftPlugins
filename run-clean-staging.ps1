@@ -1,0 +1,6 @@
+$dir='D:\plugins\m1-staging';$log="$dir\quests-clean-ready.log";$err="$dir\quests-clean-ready.err";Remove-Item $log,$err -ErrorAction SilentlyContinue
+$psi=[Diagnostics.ProcessStartInfo]::new();$psi.FileName='java';$psi.Arguments='-Dhardcraft.stagingProbe=true -jar paper.jar --nogui';$psi.WorkingDirectory=$dir;$psi.UseShellExecute=$false;$psi.RedirectStandardInput=$true;$psi.RedirectStandardOutput=$true;$psi.RedirectStandardError=$true
+$p=[Diagnostics.Process]::new();$p.StartInfo=$psi;$p.Start()|Out-Null;$ready=$false;$deadline=[DateTime]::UtcNow.AddSeconds(45);$lines=[Collections.Generic.List[string]]::new()
+while([DateTime]::UtcNow-lt$deadline -and !$p.HasExited){$line=$p.StandardOutput.ReadLine();if($null-ne$line){$lines.Add($line);if($line-match 'Done \('){$ready=$true;break}}}
+if(!$ready){$lines|Set-Content $log;if(!$p.HasExited){$p.Kill($true)};throw 'server did not become ready'}
+Start-Sleep 3;$p.StandardInput.WriteLine('stop');$p.StandardInput.Flush();while(!$p.HasExited){$line=$p.StandardOutput.ReadLine();if($null-ne$line){$lines.Add($line)}};$lines.Add($p.StandardOutput.ReadToEnd());$lines|Set-Content $log;$p.StandardError.ReadToEnd()|Set-Content $err;if($p.ExitCode-ne 0){throw "server exit $($p.ExitCode)"}

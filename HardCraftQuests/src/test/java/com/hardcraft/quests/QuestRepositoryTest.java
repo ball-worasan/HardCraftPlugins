@@ -1,0 +1,13 @@
+package com.hardcraft.quests;
+
+import static org.junit.jupiter.api.Assertions.*;import java.nio.file.Path;import java.util.UUID;import java.util.concurrent.*;import org.junit.jupiter.api.*;import org.junit.jupiter.api.io.TempDir;
+
+final class QuestRepositoryTest {
+    @TempDir Path temp;private QuestRepository repository;private UUID owner;
+    @BeforeEach void setUp(){repository=new QuestRepository(temp.resolve("quests.db"));repository.migrate();owner=UUID.randomUUID();}
+    @Test void startIsIdempotentAndProgressSurvivesReopen(){repository.start(owner,"welcome");repository.advance(owner,"welcome",3);QuestRepository reopened=new QuestRepository(temp.resolve("quests.db"));assertEquals(1,reopened.find(owner,"welcome").orElseThrow().progress());assertEquals(QuestProgress.State.ACTIVE,reopened.start(owner,"welcome").state());}
+    @Test void duplicateEventsStopAtTarget(){repository.start(owner,"welcome");for(int i=0;i<20;i++)repository.advance(owner,"welcome",3);QuestProgress p=repository.find(owner,"welcome").orElseThrow();assertEquals(3,p.progress());assertEquals(QuestProgress.State.REWARDING,p.state());}
+    @Test void rewardFlagsCompleteExactlyOnce(){repository.start(owner,"welcome");for(int i=0;i<3;i++)repository.advance(owner,"welcome",3);repository.markMoney(owner,"welcome");repository.markMoney(owner,"welcome");assertEquals(QuestProgress.State.REWARDING,repository.find(owner,"welcome").orElseThrow().state());repository.markItem(owner,"welcome");repository.markItem(owner,"welcome");QuestProgress p=repository.find(owner,"welcome").orElseThrow();assertTrue(p.moneyPaid()&&p.itemDelivered());assertEquals(QuestProgress.State.COMPLETED,p.state());}
+    @Test void concurrentEventsSerializeWithoutOvercount()throws Exception{repository.start(owner,"welcome");try(ExecutorService pool=Executors.newFixedThreadPool(8)){var jobs=new java.util.ArrayList<Future<?>>();for(int i=0;i<40;i++)jobs.add(pool.submit(()->repository.advance(owner,"welcome",3)));for(Future<?> job:jobs)job.get();}assertEquals(3,repository.find(owner,"welcome").orElseThrow().progress());}
+    @Test void crashAfterItemAddLocksRetryUntilAuditedAdminDecision(){repository.start(owner,"welcome");for(int i=0;i<3;i++)repository.advance(owner,"welcome",3);repository.markMoney(owner,"welcome");QuestProgress locked=repository.requireReview(owner,"welcome","SYSTEM","inventory has reward but DB is undelivered");assertEquals(QuestProgress.State.REVIEW_REQUIRED,locked.state());assertFalse(locked.itemDelivered());assertEquals(1,repository.auditCount(owner,"welcome"));assertEquals(QuestProgress.State.COMPLETED,repository.resolve(owner,"welcome","admin",true).state());assertEquals(2,repository.auditCount(owner,"welcome"));}
+}

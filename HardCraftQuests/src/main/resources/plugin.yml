@@ -1,0 +1,19 @@
+name: HardCraftQuests
+version: '${version}'
+main: com.hardcraft.quests.HardCraftQuests
+api-version: '26.2'
+authors: [HardCraft]
+description: Server-authoritative onboarding quest for HardCraft
+depend: [HardCraftCore, HardCraftProfiles, HardCraftItems, HardCraftEconomy]
+commands:
+  quest:
+    description: Start or view the onboarding quest
+    usage: /quest [start|progress]
+  questadmin:
+    description: Inspect or resolve quest reward recovery
+    usage: /questadmin <inspect|confirm|retry> <uuid>
+permissions:
+  hardcraft.quests.use:
+    default: true
+  hardcraft.quests.admin:
+    default: op

@@ -1,6 +1,7 @@
 config-version: 1
 debug: false
 database:
-  # Disabled until a Pterodactyl Database Host is configured.
-  enabled: false
+  # SQLite fits one Paper server and requires no database credentials.
+  enabled: true
+  path: hardcraft.db
   pool-size: 4

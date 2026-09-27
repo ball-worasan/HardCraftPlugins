@@ -1,0 +1,10 @@
+{
+    "version":  "0.1.0",
+    "path":  "D:\\plugins\\HardCraftEconomy\\build\\libs\\HardCraftEconomy-0.1.0.jar",
+    "bytes":  14364806,
+    "sha256":  "9D66E7A7FE98280D4AFA8C78DCF4906FB80F6B424EF9E591E3B442F1B9AD9F58",
+    "zip_valid":  true,
+    "tests":  "5/5",
+    "staging":  "PASS (startup, restart persistence/idempotency, clean shutdown)",
+    "built_at":  "2026-09-27T11:31:03.7903692Z"
+}

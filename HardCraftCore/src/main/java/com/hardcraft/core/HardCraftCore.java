@@ -7,6 +7,7 @@ import com.hardcraft.core.command.HardCraftCommand;
 import com.hardcraft.core.config.CoreConfig;
 import com.hardcraft.core.config.CoreSettings;
 import com.hardcraft.core.migration.MigrationRunner;
+import java.nio.file.Path;
 import java.util.Objects;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.ServicePriority;
@@ -22,7 +23,10 @@ public final class HardCraftCore extends JavaPlugin implements CoreApi {
         try {
             coreConfig = new CoreConfig(this);
             CoreSettings settings = coreConfig.load();
-            migrationState = new MigrationRunner(getLogger()).run(settings.databaseEnabled());
+            Path database = getDataFolder().toPath().resolve(settings.databasePath()).normalize();
+            migrationState = new MigrationRunner(getLogger()).run(settings.databaseEnabled(), database);
+            services.clear();
+            getServer().getServicesManager().unregisterAll(this);
             PluginCommand command = Objects.requireNonNull(getCommand("hardcraft"), "hardcraft command missing");
             HardCraftCommand handler = new HardCraftCommand(this);
             command.setExecutor(handler);

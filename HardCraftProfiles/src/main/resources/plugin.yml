@@ -1,0 +1,7 @@
+name: HardCraftProfiles
+version: '${version}'
+main: com.hardcraft.profiles.HardCraftProfiles
+api-version: '26.2'
+authors: [HardCraft]
+description: UUID-based player profiles for HardCraft
+depend: [HardCraftCore]

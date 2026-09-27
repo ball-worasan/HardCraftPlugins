@@ -1,0 +1,7 @@
+name: HardCraftItems
+version: '${version}'
+main: com.hardcraft.items.HardCraftItems
+api-version: '26.2'
+authors: [HardCraft]
+description: Server-authoritative custom items for HardCraft
+depend: [HardCraftCore]

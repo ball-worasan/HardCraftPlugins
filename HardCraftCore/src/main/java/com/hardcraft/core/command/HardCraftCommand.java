@@ -34,7 +34,7 @@ public final class HardCraftCommand implements CommandExecutor, TabCompleter {
             try {
                 plugin.reloadValidatedConfig();
                 sender.sendMessage(Component.text("HardCraftCore configuration reloaded."));
-            } catch (IllegalArgumentException exception) {
+            } catch (RuntimeException exception) {
                 sender.sendMessage(Component.text("Reload rejected: " + exception.getMessage()));
             }
             return true;

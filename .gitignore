@@ -1,2 +1,22 @@
 # Local credentials
 pterodactyl.env
+
+# Generated/runtime state
+.vscode/
+**/.gradle/
+**/build/
+**/bin/
+*.log
+*.err
+*.exit
+*.db
+*.db-*
+*-staging/
+*-evidence/
+*-backup/
+host-access-runtime.json
+server-access-redacted.json
+production-*.json
+backup-list-redacted.json
+core-backup-result.json
+sftp-probe*

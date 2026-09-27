@@ -1,0 +1,44 @@
+{
+    "order":  [
+                  "HardCraftProfiles",
+                  "HardCraftItems",
+                  "HardCraftEconomy",
+                  "HardCraftQuests"
+              ],
+    "artifacts":  [
+                      {
+                          "name":  "HardCraftProfiles",
+                          "version":  "0.1.0",
+                          "path":  "D:\\plugins\\HardCraftProfiles\\build\\libs\\HardCraftProfiles-0.1.0.jar",
+                          "bytes":  14356790,
+                          "sha256":  "CEC2C1E42D5E466FE75415463CC552F3A6F5022C7BA9AF7020592288500EABCB",
+                          "zip_valid":  true
+                      },
+                      {
+                          "name":  "HardCraftItems",
+                          "version":  "0.1.0",
+                          "path":  "D:\\plugins\\HardCraftItems\\build\\libs\\HardCraftItems-0.1.0.jar",
+                          "bytes":  20305,
+                          "sha256":  "E3FCAF5E12DDAB18FCF3FD13FFC5E47365E3064DA57518A92D4E961ACA4357BB",
+                          "zip_valid":  true
+                      },
+                      {
+                          "name":  "HardCraftEconomy",
+                          "version":  "0.1.0",
+                          "path":  "D:\\plugins\\HardCraftEconomy\\build\\libs\\HardCraftEconomy-0.1.0.jar",
+                          "bytes":  14364806,
+                          "sha256":  "9D66E7A7FE98280D4AFA8C78DCF4906FB80F6B424EF9E591E3B442F1B9AD9F58",
+                          "zip_valid":  true
+                      },
+                      {
+                          "name":  "HardCraftQuests",
+                          "version":  "0.1.0",
+                          "path":  "D:\\plugins\\HardCraftQuests\\build\\libs\\HardCraftQuests-0.1.0.jar",
+                          "bytes":  14369928,
+                          "sha256":  "7318663DD54C9BABDCBD44D14BD9BCE65B9CF33E18427993F2882EAD0547552F",
+                          "zip_valid":  true
+                      }
+                  ],
+    "database":  "plugins/HardCraftCore/hardcraft.db",
+    "created_at":  "2026-09-27T11:56:17.5471707Z"
+}

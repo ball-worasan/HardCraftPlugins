@@ -1,0 +1,7 @@
+name: HardCraftEconomy
+version: '${version}'
+main: com.hardcraft.economy.HardCraftEconomy
+api-version: '26.2'
+authors: [HardCraft]
+description: Atomic UUID wallets and ledger for HardCraft
+depend: [HardCraftCore]
