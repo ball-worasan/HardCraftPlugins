@@ -35,6 +35,18 @@ Operator command:
 6. Expected: each qualifying online participant receives exactly one diamond; a player below 10 damage receives none; reconnect/restart gives no duplicate.
 7. Spawn another titan, damage it, then stop and restart Paper before death.
 8. Expected: unfinished titan is removed after restart; nobody receives loot.
+9. Kill a titan while one qualifying player's inventory is full, then free one slot and reconnect.
+10. Expected: reward remains `PENDING`, then delivers once after reconnect. Restart before inventory delivery retries safely.
+11. Force-stop only on staging after log/state reaches `DELIVERING`, once before and once after the item appears.
+12. Expected: startup changes the claim to `UNCERTAIN`; no automatic retry. Compare inventory evidence with `hardcraft_mob_loot_audit`, then reconcile manually. Never change `UNCERTAIN` without player UUID, entity UUID, timestamp, and inventory evidence.
+
+Audit query (copy the DB first; do not edit production):
+
+```sql
+SELECT l.entity_uuid,l.player_uuid,l.boss_id,l.status,l.updated_at,a.from_status,a.to_status,a.reason,a.created_at
+FROM hardcraft_mob_loot l JOIN hardcraft_mob_loot_audit a USING(entity_uuid,player_uuid)
+WHERE l.status='UNCERTAIN' ORDER BY a.created_at;
+```
 
 ## Server commands and expected evidence
 

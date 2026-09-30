@@ -1,15 +1,15 @@
 {
   "at": "2026-09-30T23:38:00+07:00",
-  "head": "pending B1 commit",
+  "head": "eb3cf249abcba8a24979717686922e1b9bdf2a42 plus pending Mobs reward recovery fix",
   "ci": {
-    "workflow": "World Skills Collections CI",
-    "run": "https://github.com/ball-worasan/HardCraftPlugins/actions/runs/36734662121",
+    "workflow": "Beta Expansion CI",
+    "run": "https://github.com/ball-worasan/HardCraftPlugins/actions/runs/36745785652",
     "platform": "ubuntu-latest",
     "java": 25,
     "gradle": "9.1.0 wrapper",
     "result": "PASS",
-    "modules": ["HardCraftWorld", "HardCraftSkills", "HardCraftCollections"],
-    "artifacts": "3 JAR artifacts and 3 test-report artifacts"
+    "modules": ["HardCraftMobs"],
+    "artifacts": "HardCraftMobs JAR"
   },
   "world": {
     "version": "0.1.1",
@@ -21,7 +21,7 @@
   "skills": "BUILD_AND_TEST_PASS; lifecycle staging not run",
   "collections": "BUILD_AND_TEST_PASS; lifecycle staging not run",
   "events": "CI run 36740735096 PASS at cc765fb: World, Skills, Collections, Events all 4 jobs successful; automated repository tests cover lifecycle, ACTIVE restart, REWARDING retry, contribution idempotency, cancellation refund recovery; player Java/Bedrock AC remains BLOCKED",
-  "mobs": "AUTOMATED PASS pending commit/CI: HardCraftMobs 0.1.0 clean build exit 0; XML 4/4; JAR 14360409 bytes SHA256 BE54EFCDC4C78846383E4C50A14D5DE5E7B8D267A75921EE7D486426B5376597; Paper 26.2 Java 25 staging PREPARED then restart PASS: unfinished entity removed, loot claim persisted and duplicate rejected. Java/Bedrock player-visible AC BLOCKED and consolidated in PLAYER-ACCEPTANCE-TEST.md",
+  "mobs": "B1 CI PASS at eb3cf24 run 36745785652. Follow-up reward recovery fix local unit PASS 5/5: durable PENDING/DELIVERING/DELIVERED/UNCERTAIN states plus transition audit; crash before delivery retries, crash during/after inventory mutation never retries automatically and requires evidence-based reconciliation. Updated player crash AC pending staging/client rerun.",
   "production": "NOT_DEPLOYED; backup/verification gate remains required",
-  "safeResume": "Commit/push B1 source, workflow, player test guide and checkpoint; verify Beta Expansion CI. Then implement Market -> Guilds -> Bounty -> Achievements -> Seasons -> Analytics with one verified checkpoint each. Player client AC must not block those modules. Never commit mobs-build.out or runtime directories. Do not production deploy."
+  "safeResume": "Commit/push Mobs reward recovery and verify Beta Expansion CI. Then implement Market -> Guilds -> Bounty -> Achievements -> Seasons -> Analytics continuously. Player client AC must not block module development. Never commit build logs/runtime directories. Do not production deploy."
 }
