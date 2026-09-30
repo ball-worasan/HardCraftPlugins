@@ -1,6 +1,6 @@
 {
-  "at": "2026-09-30T22:17:37+07:00",
-  "head": "7013320190f601f19c11a2ef5ac6945dcb06300c",
+  "at": "2026-09-30T23:38:00+07:00",
+  "head": "pending B1 commit",
   "ci": {
     "workflow": "World Skills Collections CI",
     "run": "https://github.com/ball-worasan/HardCraftPlugins/actions/runs/36734662121",
@@ -20,6 +20,8 @@
   },
   "skills": "BUILD_AND_TEST_PASS; lifecycle staging not run",
   "collections": "BUILD_AND_TEST_PASS; lifecycle staging not run",
-  "production": "NOT_DEPLOYED",
-  "safeResume": "Implement HardCraftEvents A3: restart-safe scheduler/state/contributions/idempotent rewards/cancellation recovery; add tests and CI"
+  "events": "CI run 36740735096 PASS at cc765fb: World, Skills, Collections, Events all 4 jobs successful; automated repository tests cover lifecycle, ACTIVE restart, REWARDING retry, contribution idempotency, cancellation refund recovery; player Java/Bedrock AC remains BLOCKED",
+  "mobs": "AUTOMATED PASS pending commit/CI: HardCraftMobs 0.1.0 clean build exit 0; XML 4/4; JAR 14360409 bytes SHA256 BE54EFCDC4C78846383E4C50A14D5DE5E7B8D267A75921EE7D486426B5376597; Paper 26.2 Java 25 staging PREPARED then restart PASS: unfinished entity removed, loot claim persisted and duplicate rejected. Java/Bedrock player-visible AC BLOCKED and consolidated in PLAYER-ACCEPTANCE-TEST.md",
+  "production": "NOT_DEPLOYED; backup/verification gate remains required",
+  "safeResume": "Commit/push B1 source, workflow, player test guide and checkpoint; verify Beta Expansion CI. Then implement Market -> Guilds -> Bounty -> Achievements -> Seasons -> Analytics with one verified checkpoint each. Player client AC must not block those modules. Never commit mobs-build.out or runtime directories. Do not production deploy."
 }

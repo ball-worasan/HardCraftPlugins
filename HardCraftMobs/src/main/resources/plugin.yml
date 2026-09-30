@@ -1,0 +1,11 @@
+name: HardCraftMobs
+version: '${version}'
+main: com.hardcraft.mobs.HardCraftMobs
+api-version: '26.2'
+depend: [HardCraftCore, HardCraftItems]
+commands:
+  hcmob:
+    usage: /hcmob spawn <id>
+    permission: hardcraft.mobs.admin
+permissions:
+  hardcraft.mobs.admin: {default: op}

@@ -9,6 +9,7 @@ pterodactyl.env
 *.log
 *.err
 *.exit
+*.out
 *.db
 *.db-*
 *-staging/

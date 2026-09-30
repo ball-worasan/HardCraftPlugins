@@ -1,0 +1,12 @@
+bosses:
+  stone_titan:
+    entity: IRON_GOLEM
+    name: Stone Titan
+    base-health: 200.0
+    health-per-player: 50.0
+    phases: [0.66, 0.33]
+    participation-min-damage: 10.0
+    loot:
+      material: DIAMOND
+      amount: 1
+performance-target-players: 20

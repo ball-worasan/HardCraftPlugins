@@ -1,0 +1,28 @@
+name: Beta Expansion CI
+on:
+  push:
+    branches: [main]
+    paths: ["HardCraftMobs/**", "HardCraftMarket/**", "HardCraftGuilds/**", "HardCraftBounty/**", "HardCraftAchievements/**", "HardCraftSeasons/**", "HardCraftAnalytics/**", ".github/workflows/beta-expansion.yml"]
+  pull_request:
+    paths: ["HardCraftMobs/**", "HardCraftMarket/**", "HardCraftGuilds/**", "HardCraftBounty/**", "HardCraftAchievements/**", "HardCraftSeasons/**", "HardCraftAnalytics/**", ".github/workflows/beta-expansion.yml"]
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix: {module: [HardCraftMobs]}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with: {distribution: temurin, java-version: "25", cache: gradle}
+      - name: Build prerequisites and module
+        run: |
+          chmod +x HardCraftCore/gradlew
+          HardCraftCore/gradlew --no-daemon -p HardCraftCore jar
+          HardCraftCore/gradlew --no-daemon -p HardCraftItems jar
+          HardCraftCore/gradlew --no-daemon -p "${{ matrix.module }}" clean test jar
+      - uses: actions/upload-artifact@v4
+        with: {name: "${{ matrix.module }}-jar", path: "${{ matrix.module }}/build/libs/*.jar", if-no-files-found: error}
