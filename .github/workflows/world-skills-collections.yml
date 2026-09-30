@@ -1,0 +1,65 @@
+name: World Skills Collections CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "HardCraftCore/gradle/wrapper/**"
+      - "HardCraftCore/gradlew"
+      - "HardCraftWorld/**"
+      - "HardCraftSkills/**"
+      - "HardCraftCollections/**"
+      - ".github/workflows/world-skills-collections.yml"
+  pull_request:
+    paths:
+      - "HardCraftCore/gradle/wrapper/**"
+      - "HardCraftCore/gradlew"
+      - "HardCraftWorld/**"
+      - "HardCraftSkills/**"
+      - "HardCraftCollections/**"
+      - ".github/workflows/world-skills-collections.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.module }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [HardCraftWorld, HardCraftSkills, HardCraftCollections]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: gradle
+          cache-dependency-path: |
+            HardCraftCore/gradle/wrapper/gradle-wrapper.properties
+            ${{ matrix.module }}/build.gradle.kts
+            ${{ matrix.module }}/settings.gradle.kts
+      - name: Build and test
+        run: |
+          chmod +x HardCraftCore/gradlew
+          HardCraftCore/gradlew --no-daemon --console=plain -p "${{ matrix.module }}" clean test jar
+      - name: Upload JAR
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.module }}-jar
+          path: ${{ matrix.module }}/build/libs/*.jar
+          if-no-files-found: error
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.module }}-test-reports
+          path: |
+            ${{ matrix.module }}/build/reports/tests/test/**
+            ${{ matrix.module }}/build/test-results/test/**
+          if-no-files-found: warn
