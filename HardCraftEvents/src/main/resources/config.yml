@@ -1,0 +1,4 @@
+event:
+  material: COBBLESTONE
+  target: 1000
+  reward-money: 250

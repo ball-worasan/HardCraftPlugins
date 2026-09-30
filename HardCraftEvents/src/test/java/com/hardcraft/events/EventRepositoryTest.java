@@ -1,0 +1,12 @@
+package com.hardcraft.events;
+import static org.junit.jupiter.api.Assertions.*;import java.nio.file.*;import java.util.*;import org.junit.jupiter.api.*;import org.junit.jupiter.api.io.TempDir;
+class EventRepositoryTest{
+ @TempDir Path dir;EventRepository repo;UUID owner=UUID.randomUUID();@BeforeEach void setup(){repo=new EventRepository(dir.resolve("events.db"));repo.migrate();}
+ @Test void lifecycleAndActiveStateSurviveRestart(){repo.schedule("drive","COBBLESTONE",5,10,0,"admin");repo.transition("drive",EventState.ANNOUNCED,"admin");repo.transition("drive",EventState.ACTIVE,"admin");assertEquals(EventState.ACTIVE,new EventRepository(dir.resolve("events.db")).find("drive").state());assertEquals(3,repo.auditCount("drive"));assertThrows(IllegalStateException.class,()->repo.transition("drive",EventState.FINISHED,"admin"));}
+ @Test void acceptedContributionCountsActualOnce(){active();String id=repo.reserve("drive",owner,"COBBLESTONE",3);assertEquals(3,repo.accept(id).progress());assertEquals(3,repo.accept(id).progress());}
+ @Test void rewardRetryStaysPendingUntilMarkedPaid(){active();repo.accept(repo.reserve("drive",owner,"COBBLESTONE",5));repo.transition("drive",EventState.REWARDING,"system");assertTrue(repo.reserveReward("drive",owner));assertTrue(new EventRepository(dir.resolve("events.db")).reserveReward("drive",owner));repo.markRewardPaid("drive",owner);assertFalse(repo.reserveReward("drive",owner));}
+ @Test void cancellationCreatesDurableRefundWork(){active();String id=repo.reserve("drive",owner,"COBBLESTONE",2);repo.accept(id);repo.transition("drive",EventState.CANCELLED,"admin");EventRepository restarted=new EventRepository(dir.resolve("events.db"));assertEquals(List.of(new RefundWork(id,"COBBLESTONE",2)),restarted.pendingRefunds(owner));assertTrue(restarted.reserveRefund(id,owner));assertFalse(restarted.reserveRefund(id,owner));restarted.finishRefund(id,owner);assertTrue(restarted.pendingRefunds(owner).isEmpty());}
+ @Test void pendingReservationsCannotOverfillTarget(){active();repo.reserve("drive",owner,"COBBLESTONE",4);assertThrows(IllegalStateException.class,()->repo.reserve("drive",UUID.randomUUID(),"COBBLESTONE",2));}
+ @Test void pendingRemovalCanBeLockedForReview(){active();String id=repo.reserve("drive",owner,"COBBLESTONE",2);repo.review(id);assertThrows(IllegalStateException.class,()->repo.accept(id));}
+ private void active(){repo.schedule("drive","COBBLESTONE",5,10,0,"admin");repo.transition("drive",EventState.ANNOUNCED,"admin");repo.transition("drive",EventState.ACTIVE,"admin");}
+}

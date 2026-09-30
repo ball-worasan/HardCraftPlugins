@@ -1,0 +1,13 @@
+name: HardCraftEvents
+version: '${version}'
+main: com.hardcraft.events.HardCraftEvents
+api-version: '26.2'
+depend: [HardCraftCore, HardCraftEconomy]
+commands:
+  event:
+    usage: /event [status|contribute <amount>|reward|refund]
+  eventadmin:
+    usage: /eventadmin <schedule|announce|start|reward|finish|cancel|inspect> [event-id]
+permissions:
+  hardcraft.events.use: {default: true}
+  hardcraft.events.admin: {default: op}

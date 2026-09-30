@@ -1,0 +1,2 @@
+package com.hardcraft.events;
+enum EventState{SCHEDULED,ANNOUNCED,ACTIVE,REWARDING,FINISHED,CANCELLED}
