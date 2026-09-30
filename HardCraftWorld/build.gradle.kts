@@ -1,6 +1,6 @@
 plugins { java }
 group = "com.hardcraft"
-version = "0.1.0"
+version = "0.1.1"
 repositories { mavenCentral(); maven("https://repo.papermc.io/repository/maven-public/") }
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.129-stable")

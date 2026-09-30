@@ -1,0 +1,8 @@
+formula-version: 1
+reconcile-policy: KEEP_XP_RECALCULATE_LEVEL
+levels: [0, 100, 300, 700, 1500]
+xp:
+  mining: 5
+  farming: 4
+  combat: 8
+cooldown-millis: 1500

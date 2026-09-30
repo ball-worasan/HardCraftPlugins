@@ -1,0 +1,3 @@
+package com.hardcraft.skills;
+import static org.junit.jupiter.api.Assertions.*;import java.nio.file.Path;import java.util.UUID;import org.junit.jupiter.api.Test;import org.junit.jupiter.api.io.TempDir;
+class SkillRepositoryTest{@Test void grantIsIdempotentAndFormulaReconciles(@TempDir Path d){SkillRepository r=new SkillRepository(d.resolve("db"));r.migrate();UUID u=UUID.randomUUID();long[] old={0,10,30},changed={0,5,15};assertEquals(1,r.grant(u,Skill.MINING,10,"event",1,old).level());assertEquals(10,r.grant(u,Skill.MINING,10,"event",1,old).xp());assertEquals(1,r.find(u,Skill.MINING,changed,2).level());assertEquals(2,r.grant(u,Skill.MINING,5,"next",2,changed).level());}}

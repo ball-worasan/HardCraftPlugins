@@ -1,0 +1,11 @@
+name: HardCraftSkills
+version: '${version}'
+main: com.hardcraft.skills.HardCraftSkills
+api-version: '26.2'
+depend: [HardCraftCore]
+commands:
+  skills:
+    permission: hardcraft.skills.use
+    usage: /skills [mining|farming|combat]
+permissions:
+  hardcraft.skills.use: {default: true}
