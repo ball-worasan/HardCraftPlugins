@@ -1,0 +1,7 @@
+package com.hardcraft.collections;
+import java.nio.file.*;import java.util.UUID;import org.bukkit.Bukkit;import org.bukkit.plugin.java.JavaPlugin;
+final class StagingProbe{
+ private static final UUID OWNER=UUID.fromString("00000000-0000-0000-0000-000000000701");private final JavaPlugin plugin;private final CollectionRepository repo;
+ StagingProbe(JavaPlugin p,CollectionRepository r){plugin=p;repo=r;}
+ void run(){if(!Boolean.getBoolean("hardcraft.collections.stagingProbe"))return;Bukkit.getScheduler().runTaskAsynchronously(plugin,()->{try{Path marker=plugin.getDataFolder().toPath().resolve("staging-probe-prepared");boolean first=repo.discover(OWNER,"MOB","minecraft:zombie"),reward=repo.claim(OWNER,1);if(Files.exists(marker)){if(first||reward||repo.count(OWNER)!=1)throw new IllegalStateException("discovery or milestone duplicated/lost");Files.delete(marker);plugin.getLogger().info("STAGING_PROBE PASS: discovery and milestone remained unique after restart");}else{if(!first||!reward||repo.count(OWNER)!=1)throw new IllegalStateException("initial discovery failed");Files.createDirectories(marker.getParent());Files.createFile(marker);plugin.getLogger().info("STAGING_PROBE PREPARED: discovery and milestone committed; restart required");}Bukkit.shutdown();}catch(Throwable e){plugin.getLogger().log(java.util.logging.Level.SEVERE,"STAGING_PROBE FAIL",e);Bukkit.shutdown();}});}
+}

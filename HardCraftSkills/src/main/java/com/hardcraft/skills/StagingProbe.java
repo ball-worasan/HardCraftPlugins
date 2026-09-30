@@ -1,0 +1,7 @@
+package com.hardcraft.skills;
+import java.nio.file.*;import java.util.UUID;import org.bukkit.Bukkit;import org.bukkit.plugin.java.JavaPlugin;
+final class StagingProbe{
+ private static final UUID OWNER=UUID.fromString("00000000-0000-0000-0000-000000000601");private final JavaPlugin plugin;private final SkillRepository repo;private final long[] levels;private final int formula;
+ StagingProbe(JavaPlugin p,SkillRepository r,long[] l,int f){plugin=p;repo=r;levels=l;formula=f;}
+ void run(){if(!Boolean.getBoolean("hardcraft.skills.stagingProbe"))return;Bukkit.getScheduler().runTaskAsynchronously(plugin,()->{try{Path marker=plugin.getDataFolder().toPath().resolve("staging-probe-prepared");SkillProgress p=repo.grant(OWNER,Skill.MINING,10,"skills-staging-grant",formula,levels);if(p.xp()!=10)throw new IllegalStateException("XP duplicated or lost: "+p.xp());if(Files.exists(marker)){Files.delete(marker);plugin.getLogger().info("STAGING_PROBE PASS: XP, level and idempotent grant survived restart");}else{Files.createDirectories(marker.getParent());Files.createFile(marker);plugin.getLogger().info("STAGING_PROBE PREPARED: XP grant committed; restart required");}Bukkit.shutdown();}catch(Throwable e){plugin.getLogger().log(java.util.logging.Level.SEVERE,"STAGING_PROBE FAIL",e);Bukkit.shutdown();}});}
+}
