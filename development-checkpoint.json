@@ -1,11 +1,25 @@
-﻿{
-    "at":  "2026-09-30T21:12:02.4346820+07:00",
-    "worldVersion":  "0.1.1-checkpoint-5969b9d",
-    "sourceFix":  "EntityExplodeEvent updated for Paper 26.2 ExplosionResult",
-    "gradle":  "BLOCKED: isolated daemon reaches compileJava then hangs; shell integration cannot observe completion reliably",
-    "build":  "World/Skills/Collections Gradle UNVERIFIED; Skills and Collections repository sources compile with javac 25",
-    "staging":  "NOT RUN",
-    "skills":  "SOURCE COMPLETE; lifecycle UNVERIFIED",
-    "collections":  "SOURCE COMPLETE; lifecycle UNVERIFIED",
-    "safeResume":  "Resolve Gradle daemon; run World/Skills/Collections clean test jar; stage World probe twice; then implement Events"
+{
+  "at": "2026-09-30T22:17:37+07:00",
+  "head": "7013320190f601f19c11a2ef5ac6945dcb06300c",
+  "ci": {
+    "workflow": "World Skills Collections CI",
+    "run": "https://github.com/ball-worasan/HardCraftPlugins/actions/runs/36734662121",
+    "platform": "ubuntu-latest",
+    "java": 25,
+    "gradle": "9.1.0 wrapper",
+    "result": "PASS",
+    "modules": ["HardCraftWorld", "HardCraftSkills", "HardCraftCollections"],
+    "artifacts": "3 JAR artifacts and 3 test-report artifacts"
+  },
+  "world": {
+    "version": "0.1.1",
+    "build": "PASS",
+    "tests": "PASS",
+    "staging": "PASS",
+    "probe": "Core APPLIED then UP_TO_DATE; Profiles enabled; claim persistence, offline trust, fluid boundary, explosion filtering passed after restart"
+  },
+  "skills": "BUILD_AND_TEST_PASS; lifecycle staging not run",
+  "collections": "BUILD_AND_TEST_PASS; lifecycle staging not run",
+  "production": "NOT_DEPLOYED",
+  "safeResume": "Implement HardCraftEvents A3: restart-safe scheduler/state/contributions/idempotent rewards/cancellation recovery; add tests and CI"
 }
