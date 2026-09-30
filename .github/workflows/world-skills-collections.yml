@@ -49,6 +49,10 @@ jobs:
         run: |
           chmod +x HardCraftCore/gradlew
           set -o pipefail
+          if [ "${{ matrix.module }}" = "HardCraftEvents" ]; then
+            HardCraftCore/gradlew --no-daemon --console=plain -p HardCraftCore jar
+            HardCraftCore/gradlew --no-daemon --console=plain -p HardCraftEconomy jar
+          fi
           HardCraftCore/gradlew --no-daemon --console=plain -p "${{ matrix.module }}" clean test jar 2>&1 | tee "${{ matrix.module }}-build.log"
       - name: Upload JAR
         if: success()
