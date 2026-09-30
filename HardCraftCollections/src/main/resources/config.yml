@@ -1,0 +1,10 @@
+reveal-missing: false
+milestones: [3, 6, 10]
+entries:
+  - MOB:minecraft:zombie
+  - MOB:minecraft:skeleton
+  - MOB:minecraft:creeper
+  - BIOME:minecraft:plains
+  - BIOME:minecraft:desert
+  - FISH:minecraft:cod
+  - FISH:minecraft:salmon

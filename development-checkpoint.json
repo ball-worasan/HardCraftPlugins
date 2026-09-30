@@ -1,0 +1,11 @@
+﻿{
+    "at":  "2026-09-30T21:12:02.4346820+07:00",
+    "worldVersion":  "0.1.1-checkpoint-5969b9d",
+    "sourceFix":  "EntityExplodeEvent updated for Paper 26.2 ExplosionResult",
+    "gradle":  "BLOCKED: isolated daemon reaches compileJava then hangs; shell integration cannot observe completion reliably",
+    "build":  "World/Skills/Collections Gradle UNVERIFIED; Skills and Collections repository sources compile with javac 25",
+    "staging":  "NOT RUN",
+    "skills":  "SOURCE COMPLETE; lifecycle UNVERIFIED",
+    "collections":  "SOURCE COMPLETE; lifecycle UNVERIFIED",
+    "safeResume":  "Resolve Gradle daemon; run World/Skills/Collections clean test jar; stage World probe twice; then implement Events"
+}

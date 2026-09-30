@@ -1,0 +1,10 @@
+name: HardCraftCollections
+version: '${version}'
+main: com.hardcraft.collections.HardCraftCollections
+api-version: '26.2'
+depend: [HardCraftCore]
+commands:
+  collections:
+    permission: hardcraft.collections.use
+permissions:
+  hardcraft.collections.use: {default: true}
