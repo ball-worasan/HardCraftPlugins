@@ -20,3 +20,26 @@ production-*.json
 backup-list-redacted.json
 core-backup-result.json
 sftp-probe*
+
+# Local build/CI diagnostics
+/.gradle-world/
+/gradle-diagnostic/
+/HardCraftCore/build-validation.txt
+/commit-id.txt
+/db-driver-check.txt
+/final-artifacts.json
+/git-final.txt
+/java-processes.txt
+/profiles-deploy-error.txt
+/profiles-rollback.json
+/production-state.txt
+/quests-build-exit.txt
+/release-build.out
+/remote-world.txt
+/resume-java.txt
+/resume-status.txt
+/world-artifacts.txt
+/world-build*.out
+/world-checkpoint.json
+/world-detached.done
+/world-final.out
