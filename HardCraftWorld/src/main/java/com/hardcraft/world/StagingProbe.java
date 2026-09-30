@@ -1,5 +1,5 @@
 package com.hardcraft.world;
-import java.nio.file.*;import java.util.*;import org.bukkit.*;import org.bukkit.block.Block;import org.bukkit.event.block.BlockFromToEvent;import org.bukkit.event.entity.EntityExplodeEvent;import org.bukkit.event.entity.ExplosionResult;import org.bukkit.plugin.java.JavaPlugin;
+import java.nio.file.*;import java.util.*;import org.bukkit.*;import org.bukkit.block.Block;import org.bukkit.event.block.BlockFromToEvent;import org.bukkit.event.entity.EntityExplodeEvent;import org.bukkit.plugin.java.JavaPlugin;
 final class StagingProbe{
  private static final UUID OWNER=UUID.fromString("00000000-0000-0000-0000-000000000501"),TRUSTED=UUID.fromString("00000000-0000-0000-0000-000000000502");private final JavaPlugin plugin;private final ClaimService claims;
  StagingProbe(JavaPlugin p,ClaimService c){plugin=p;claims=c;}
