@@ -5,7 +5,7 @@ api-version: '26.2'
 depend: [HardCraftCore, HardCraftItems]
 commands:
   hcmob:
-    usage: /hcmob spawn <id>
+    usage: /hcmob spawn <id> | /hcmob resolve <entity UUID> <player UUID> <delivered|retry> <evidence>
     permission: hardcraft.mobs.admin
 permissions:
   hardcraft.mobs.admin: {default: op}
